@@ -45,15 +45,6 @@ const reducer = (state = initial, action) => {
                 userId
             }
         }
-
-        case actionTypes.APP_USER_LOGOUT:{
-           
-            return {
-                ...state,
-                token,
-                userId
-            }
-        }
         
         default:{
             return{

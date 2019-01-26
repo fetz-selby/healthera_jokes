@@ -1,7 +1,7 @@
 import * as actionTypes from './tagActionTypes';
 
 export const fetchAllTags = () => (
-    {type: actionTypes.TAG_FETCH_ALL, payload: {email, password}}
+    {type: actionTypes.TAG_FETCH_ALL}
 ) 
 
 export const fetchAllTagsFulfilled = (tags) => (

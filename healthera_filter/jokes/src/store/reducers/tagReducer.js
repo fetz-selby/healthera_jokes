@@ -14,15 +14,6 @@ const reducer = (state = initial, action) => {
                 tags
             }
         }
-
-        case actionTypes.APP_USER_LOGOUT:{
-           
-            return {
-                ...state,
-                token,
-                userId
-            }
-        }
         
         default:{
             return{

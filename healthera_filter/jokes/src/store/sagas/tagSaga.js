@@ -11,10 +11,10 @@ function* getTagsAsync(action){
     const url = BASE_URL+API_RES_BASE+TAGS_ENDPOINT;
     const token = cookies.load('token');
 
-    const session = yield axios.get(url, {params:{token}});
+    const feed = yield axios.get(url, {params:{token}});
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
+        const {results} = feed.data;
 
         yield put(fetchAllTagsFulfilled(results));
     }else{
@@ -28,10 +28,10 @@ function* createTagsAsync(action){
     const token = cookies.load('token');
     const data = {name: action.payload, token}
 
-    const session = yield axios.post(url, data);
+    const feed = yield axios.post(url, data);
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
+        const {results} = feed.data;
 
         yield put(fetchAllTagsFulfilled(results));
     }else{

@@ -1,5 +1,5 @@
-import * as tagActionTypes from '../actions/tags/tagActionTypes';
-import {fetchJokesWithTagFulfilled,fetchJokeFulfilled,createJokeFulfilled,updateJokeFulfilled} from '../actions/jokes/jokeActionCreators';
+import * as jokeActionTypes from '../actions/jokes/jokeActionTypes';
+import {fetchJokesWithTagFulfilled,fetchJokeFulfilled,createJokeFulfilled,updateJokeFulfilled, deleteJokeFulfilled} from '../actions/jokes/jokeActionCreators';
 
 import {takeLatest, put} from 'redux-saga/effects';
 import axios from 'axios';
@@ -11,12 +11,12 @@ function* getJokeAsync(action){
     const url = BASE_URL+API_RES_BASE+JOKES_ENDPOINT;
     const token = cookies.load('token');
 
-    const session = yield axios.get(url, {params:{token}});
+    const feed = yield axios.get(url, {params:{token}});
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
+        const {results} = feed.data;
 
-        yield put(fetchAllTagsFulfilled(results));
+        yield put(fetchJokeFulfilled(results));
     }else{
         // yield put(appActionCreators.networkError('could not retreive user session'))
     }
@@ -27,12 +27,12 @@ function* getJokeWithTagsAsync(action){
     const url = BASE_URL+API_RES_BASE+JOKES_ENDPOINT;
     const token = cookies.load('token');
 
-    const session = yield axios.get(url, {params:{token}});
+    const feed = yield axios.get(url, {params:{token}});
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
+        const {results} = feed.data;
 
-        yield put(fetchAllTagsFulfilled(results));
+        yield put(fetchJokesWithTagFulfilled(results));
     }else{
         // yield put(appActionCreators.networkError('could not retreive user session'))
     }
@@ -44,12 +44,12 @@ function* createJokeAsync(action){
     const token = cookies.load('token');
     const data = {name: action.payload, token}
 
-    const session = yield axios.post(url, data);
+    const feed = yield axios.post(url, data);
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
+        const {results} = feed.data;
 
-        yield put(fetchAllTagsFulfilled(results));
+        yield put(createJokeFulfilled(results));
     }else{
         // yield put(appActionCreators.networkError('could not retreive user session'))
     }
@@ -61,12 +61,28 @@ function* updateJokeAsync(action){
     const {id,joke} = action.payload;
     const url = BASE_URL+API_RES_BASE+JOKES_ENDPOINT+`/${id}`;
 
-    const session = yield axios.put(url, joke);
+    const feed = yield axios.put(url, joke);
 
-    if(session.data.success){
-        const {results} = session.data;
+    if(feed.data.success){
 
-        yield put(fetchAllTagsFulfilled(results));
+        yield put(updateJokeFulfilled());
+    }else{
+        // yield put(appActionCreators.networkError('could not retreive user session'))
+    }
+}
+
+function* deleteJokeAsync(action){
+       
+    const token = cookies.load('token');
+    const id = action.payload;
+    const url = BASE_URL+API_RES_BASE+JOKES_ENDPOINT+`/${id}`;
+
+    const feed = yield axios.delete(url, {params:{token}});
+
+    if(feed.data.success){
+        const {results} = feed.data;
+
+        yield put(deleteJokeFulfilled(results));
     }else{
         // yield put(appActionCreators.networkError('could not retreive user session'))
     }
@@ -74,7 +90,9 @@ function* updateJokeAsync(action){
 
 
 export default function* watchApp(){
-    yield takeLatest(tagActionTypes.TAG_FETCH_ALL, getTagsAsync);
-    yield takeLatest(tagActionTypes.TAG_CREATE, createTagsAsync);
-
+    yield takeLatest(jokeActionTypes.JOKE_FETCH_WITH_TAG, getJokeWithTagsAsync);
+    yield takeLatest(jokeActionTypes.JOKE_FETCH, getJokeAsync);
+    yield takeLatest(jokeActionTypes.JOKE_CREATE, createJokeAsync);
+    yield takeLatest(jokeActionTypes.JOKE_UPDATE, updateJokeAsync);
+    yield takeLatest(jokeActionTypes.JOKE_DELETE, deleteJokeAsync);
 }

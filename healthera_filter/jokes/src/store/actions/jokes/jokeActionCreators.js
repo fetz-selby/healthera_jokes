@@ -29,5 +29,13 @@ export const updateJoke = (id, joke) => (
 ) 
 
 export const updateJokeFulfilled = () => (
-    {type: actionTypes.JOKE_UPDATE_FULFILLED, payload: {id,joke}}
+    {type: actionTypes.JOKE_UPDATE_FULFILLED}
+) 
+
+export const deleteJoke = (id) => (
+    {type: actionTypes.JOKE_DELETE, payload: id}
+) 
+
+export const deleteJokeFulfilled = () => (
+    {type: actionTypes.JOKE_DELETE_FULFILLED}
 ) 
