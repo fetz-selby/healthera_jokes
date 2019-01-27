@@ -1,5 +1,6 @@
 import express from 'express';
 import _ from 'lodash';
+import * as utils from '../../services/utils';
     
 export default class JokeRoutes{
 
@@ -16,6 +17,7 @@ export default class JokeRoutes{
         jokeRouter.route('/')
             .get((req, res)=>{
                 const {tags} = req.query;
+
                 try{
                     this.fetchJokes(res, tags);
                 }catch(error){
@@ -160,6 +162,7 @@ export default class JokeRoutes{
     }
 
     async fetchJokes(res, tags){
+        const app = this;
         try{
            if(!tags){
                const jokes = await this.JokeModel.findAll({where: {status: 'A'}, attributes: ['id', 'sentence']});
@@ -172,20 +175,27 @@ export default class JokeRoutes{
                return;
             }
             const jokes = [];
-            tags.map(async (tag)=>{
+            const tagIds = utils.getAsArray(tags, ',');
+            tagIds.map(async (tag, i)=>{
                 const jokeGroup = await this.JokeGroupModel.findAll({where: {tag_id:tag, status: 'A'}, include:[{model: app.JokeModel, attributes: ['id', 'sentence']}] });
                 if(jokeGroup){
-                    jokeGroup.map((sJoke)=>{
-                        jokes.push(sJoke.joke);
+                    jokeGroup.map(async(sJoke)=>{
+                        if(!_.find(jokes, ['id',sJoke.joke.id])){
+                            jokes.push(sJoke.joke);
+                        }
+                    })
+                }
+
+                if(i === tagIds.length-1){
+                    res.status(200)
+                    .json({
+                        success: true,
+                        message: 'Jokes request successful',
+                        results: jokes
                     })
                 }
             });
-            res.status(200)
-            .json({
-                success: true,
-                message: 'Jokes request successful',
-                results: jokes
-            })
+            
         }catch(error){
             res.status(400)
             .json({

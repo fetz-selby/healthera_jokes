@@ -5,7 +5,7 @@ export const fetchJokesWithTag = (tagId) => (
 ) 
 
 export const fetchJokesWithTagFulfilled = (jokes) => (
-    {type: actionTypes.JOKE_FETCH_WITH_TAG, payload: jokes}
+    {type: actionTypes.JOKE_FETCH_WITH_TAG_FULFILLED, payload: jokes}
 ) 
 
 export const fetchJoke = (jokeId) => (
@@ -13,7 +13,7 @@ export const fetchJoke = (jokeId) => (
 ) 
 
 export const fetchJokeFulfilled = (joke) => (
-    {type: actionTypes.JOKE_FETCH, payload: joke}
+    {type: actionTypes.JOKE_FETCH_FULFILLED, payload: joke}
 ) 
 
 export const createJoke = (joke) => (

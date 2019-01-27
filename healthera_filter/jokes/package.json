@@ -38,8 +38,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "start-server-dev": "react-scripts build && webpack --mode=development && node ./build/app.bundle.js",
-    "start-server-prod": "react-scripts build && webpack --mode=production && node ./build/app.bundle.js"
+    "start-app-dev": "react-scripts build && webpack --mode=development && node ./build/app.bundle.js",
+    "start-app-prod": "react-scripts build && webpack --mode=production && node ./build/app.bundle.js",
+    "start-server-dev": "webpack --mode=development && node ./build/app.bundle.js"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -5,6 +5,7 @@ import {takeLatest, put} from 'redux-saga/effects';
 import axios from 'axios';
 import {BASE_URL, API_RES_BASE, JOKES_ENDPOINT} from '../../config';
 import cookies from 'react-cookies';
+import _ from 'lodash';
 
 function* getJokeAsync(action){
        
@@ -26,8 +27,9 @@ function* getJokeWithTagsAsync(action){
        
     const url = BASE_URL+API_RES_BASE+JOKES_ENDPOINT;
     const token = cookies.load('token');
+    const tagId = action.payload;
 
-    const feed = yield axios.get(url, {params:{token}});
+    const feed = yield axios.get(url, {params:{token,tags:tagId}});
 
     if(feed.data.success){
         const {results} = feed.data;

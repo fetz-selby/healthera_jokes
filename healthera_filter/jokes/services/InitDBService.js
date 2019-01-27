@@ -28,7 +28,7 @@ export default class InitDBService{
         //Add default admin user
         await app.UserModel.create({
             name: 'John',
-            email: 'john@healthera.com',
+            email: 'admin@healthera.com',
             password: 'foozle'
         })
 

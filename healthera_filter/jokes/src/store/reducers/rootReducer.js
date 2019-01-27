@@ -4,7 +4,7 @@ import appReducer from './appReducer';
 import tagReducer from './tagReducer';
 
 export default combineReducers({
-    locations : tagReducer,
+    tags : tagReducer,
     app : appReducer,
-    geo: jokeReducer
+    jokes: jokeReducer
 })

@@ -20,6 +20,8 @@ const reducer = (state = initial, action) => {
             cookies.save('userId', userId);
             cookies.save('name', name);
 
+            console.log(userId, name, token);
+
             return{
                 ...state,
                 logout,

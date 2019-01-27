@@ -1,5 +1,7 @@
 import * as appActionTypes from '../actions/app/appActionTypes';
 import {loginFulfilled} from '../actions/app/appActionCreators';
+import {fetchAllTags} from '../actions/tags/tagActionCreators';
+
 
 import {takeLatest, put} from 'redux-saga/effects';
 import axios from 'axios';
@@ -15,9 +17,11 @@ function* getSessionAsync(action){
     const session = yield axios.get(url, {params:{email,password}});
 
     if(session.data.success){
-        const {userId, token, name} = session.data.results;
+        const {userId, token, username} = session.data.results;
 
-        yield put(loginFulfilled(userId, name, token));
+        yield put(loginFulfilled(userId, username, token));
+        yield put(fetchAllTags());
+
     }else{
         // yield put(appActionCreators.networkError('could not retreive user session'))
     }

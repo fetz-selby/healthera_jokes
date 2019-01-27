@@ -7,3 +7,7 @@ exports.getHash = function(password){
                    .digest('hex');
     return hash;
 }
+
+exports.getAsArray = function(str, del){
+    return str.split(del);
+}
