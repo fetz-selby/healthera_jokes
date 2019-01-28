@@ -40,6 +40,10 @@ Either create or edit the database names and user details. Default database name
 * [Sequelize](http://docs.sequelizejs.com/)
 * [MySQL](https://www.mysql.com/)
 
+## Live Demo
+[Healthera Joke](http://35.231.169.193:7001/) credentials `admin@healthera.com` `foozle`
+
+
 ## Backlog
 ##### Show confirmation popups or dialog
 ##### Complete Swagger docs
