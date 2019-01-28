@@ -19,3 +19,7 @@ export const createTag = (name) => (
 export const createTagFulfilled = (tag) => (
     {type: actionTypes.TAG_CREATE, payload: tag}
 ) 
+
+export const tagSearch = (word) => (
+    {type: actionTypes.TAG_SEARCH, payload: word}
+) 

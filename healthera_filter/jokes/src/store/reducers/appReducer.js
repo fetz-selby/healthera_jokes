@@ -3,11 +3,10 @@ import cookies from 'react-cookies';
 
 const initial = {
     logout: false,
-    // Set default app view to locations for test purposes
-    module: 'Locations',
     name:'',
     userId:0,
-    token:''
+    token:'',
+    showAddTag:false
 }
 
 const reducer = (state = initial, action) => {
@@ -15,6 +14,7 @@ const reducer = (state = initial, action) => {
         case actionTypes.APP_LOGGED_IN:{
             const logout = false;
             const {id: userId,name,token} = action.payload;
+            const showAddTag = false;
 
             cookies.save('token', token);
             cookies.save('userId', userId);
@@ -27,7 +27,8 @@ const reducer = (state = initial, action) => {
                 logout,
                 userId,
                 name,
-                token
+                token,
+                showAddTag
             }
         }
 
@@ -45,6 +46,24 @@ const reducer = (state = initial, action) => {
                 logout,
                 token,
                 userId
+            }
+        }
+
+        case actionTypes.APP_SHOW_ADD_TAG:{
+            const showAddTag = true;
+
+            return{
+                ...state,
+                showAddTag
+            }
+        }
+
+        case actionTypes.APP_HIDE_ADD_TAG:{
+            const showAddTag = false;
+           
+            return{
+                ...state,
+                showAddTag
             }
         }
         

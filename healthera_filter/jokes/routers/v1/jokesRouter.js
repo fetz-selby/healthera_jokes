@@ -99,7 +99,7 @@ export default class JokeRoutes{
         let joke,tags;
         try{
             if(lTtags){
-                tags = _.uniq(lTtags);
+                tags = _.uniq(utils.getAsArray(lTtags, ','));
                 const isTagsValid = await app.isTagsValid(tags);
                 if(!isTagsValid){
                     throw new Error('Invalid tags association');
@@ -205,14 +205,17 @@ export default class JokeRoutes{
         }
     }
 
-    async updateJoke(res, id, sentence, lTags){
+    async updateJoke(res, id, sentence, itags){
         const app = this;
-        const tags = _.uniq(lTags);
+        const tags = utils.getAsArray(itags, ',');
+
+        console.log(tags);
         try{
 
             //Validate tags
             if(tags){
                 const isValidTags = await app.isTagsValid(tags);
+
                 if(!isValidTags){
                     throw new Error('Invalid tags association');
                 }
@@ -224,15 +227,15 @@ export default class JokeRoutes{
                 }
             }
 
-            const joke = await app.JokeModel.update({sentence}, {where:{id, status: 'A'}});
+            await app.JokeModel.update({sentence}, {where:{id, status: 'A'}});
             
             res.status(200)
             .json({
                 success: true,
                 message: 'Joke update request successful',
                 results: {
-                    id: joke.id,
-                    sentence: joke.sentence
+                    id,
+                    sentence
                 }
             })
         }catch(error){
@@ -280,7 +283,6 @@ export default class JokeRoutes{
             if(uniqTagsDB.length != uniqTags.length){
                 return resolve(true);
             }
-
             return resolve(!_.isEmpty(_.difference(uniqTags, uniqTagsDB)));
         })
     }
@@ -322,10 +324,15 @@ export default class JokeRoutes{
         const app = this;
 
         return new Promise(async(resolve, reject)=>{
-            tags.map(async(tag)=>{
+            tags.map(async(tag, i)=>{
                 const result = await app.TagModel.findOne({where:{id: tag, status: 'A'}});
+
                 if(!result){
                     return resolve(false)
+                }
+
+                if(i == tags.length-1){
+                    return resolve(true);
                 }
             });
         })

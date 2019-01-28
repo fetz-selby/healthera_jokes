@@ -6,7 +6,6 @@ import {fetchAllTags} from '../actions/tags/tagActionCreators';
 import {takeLatest, put} from 'redux-saga/effects';
 import axios from 'axios';
 import {BASE_URL, API_OPEN_BASE, SESSIONS_ENDPOINT} from '../../config';
-import cookies from 'react-cookies';
 
 function* getSessionAsync(action){
    

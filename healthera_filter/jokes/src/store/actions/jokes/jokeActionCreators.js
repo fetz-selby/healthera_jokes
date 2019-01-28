@@ -39,3 +39,12 @@ export const deleteJoke = (id) => (
 export const deleteJokeFulfilled = () => (
     {type: actionTypes.JOKE_DELETE_FULFILLED}
 ) 
+
+export const initNewJoke = () => (
+    {type: actionTypes.JOKE_INIT_NEW}
+) 
+
+export const searchJoke = (work) => (
+    {type: actionTypes.JOKE_SEARCH, payload:work}
+) 
+

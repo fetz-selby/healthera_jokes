@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import arrow from '../../assets/icons/right-arrow.svg';
 import './info-widget.css';
-import _ from 'lodash';
 
 const InfoWidget = (props) => 
     <div className='info-widget-container' onClick={()=>props.click(props.id)}>

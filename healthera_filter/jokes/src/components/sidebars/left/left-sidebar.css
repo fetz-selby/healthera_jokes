@@ -43,7 +43,7 @@
 /* Styles for Sidebar */
 .sidebar{
     display:none;
-    position: absolute;
+    position: fixed;
     width: 57%;
     padding: 5px;
     height: 100%;
@@ -150,8 +150,8 @@
 @media (min-width: 992px) {
     .sidebar{
         display: block;
-        position: absolute;
-        width: 25%;
+        position: fixed;
+        width: 20%;
         padding: 5px;
         z-index: 1;
         float: left;
@@ -182,8 +182,8 @@
 @media (min-width: 1200px) {
     .sidebar{
         display: block;
-        position: absolute;
-        width: 25%;
+        position: fixed;
+        width: 17%;
         padding: 5px;
         z-index: 1;
         float: left;
@@ -213,8 +213,8 @@
 @media (min-width: 1920px) {
     .sidebar{
         display: block;
-        position: absolute;
-        width: 25%;
+        position: fixed;
+        width: 17%;
         padding: 5px;
         z-index: 1;
         float: left;

@@ -8,6 +8,6 @@ exports.getHash = function(password){
     return hash;
 }
 
-exports.getAsArray = function(str, del){
-    return str.split(del);
+exports.getAsArray = function(str, del){    
+    return str.split(del).map((item)=>parseInt(item));
 }
