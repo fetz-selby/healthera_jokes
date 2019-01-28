@@ -1,5 +1,5 @@
 ## Introduction
-Healthera shares its amazing jokes to the world. This is the admin portal for managing all the jokes. It's a [React App](https://reactjs.org/) with [Redux](https://redux.js.org/) and [Redux-Saga](https://github.com/redux-saga/redux-saga). And with some utility helpers [Lodash](https://lodash.com/), [Axios](https://github.com/axios/axios) and [Jest](https://jestjs.io/) for testing the components.
+Healthera shares its amazing jokes to the world. This is the admin portal for managing all the jokes. It's a [React App](https://reactjs.org/) with [Redux](https://redux.js.org/), [Redux-Saga](https://github.com/redux-saga/redux-saga), [NodeJS](https://nodejs.org/en/), [Express](https://expressjs.com/), [JWT](https://jwt.io/), [Sequelize](http://docs.sequelizejs.com/) and [MySQL](https://www.mysql.com/). And with some utility helpers [Lodash](https://lodash.com/), [Axios](https://github.com/axios/axios) and [Jest](https://jestjs.io/) for testing the components.
 
 ## Features
 * User based (Default cred is 'admin@healthera.com foozle')
@@ -34,6 +34,11 @@ Either create or edit the database names and user details. Default database name
 * [Jest](https://jestjs.io/)
 * [Enzyme](https://airbnb.io/enzyme/)
 * [Lodash](https://lodash.com/)
+* [NodeJS](https://nodejs.org/en/) 
+* [Express](https://expressjs.com/)
+* [JWT](https://jwt.io/)
+* [Sequelize](http://docs.sequelizejs.com/)
+* [MySQL](https://www.mysql.com/)
 
 ## Backlog
 Show confirmation popups or dialog
