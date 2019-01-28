@@ -13,7 +13,11 @@ export default class UserRoutes{
             .get((req, res)=>{
                 
                 try{
-
+                    //TODO implement get users
+                    res.status(200)
+                    .json({
+                        success: true
+                    })
 
                 }catch(error){
                     res.status(400)
@@ -28,7 +32,11 @@ export default class UserRoutes{
             .get((req, res)=>{
                 
                 try{
-
+                    //TODO implement get users
+                    res.status(200)
+                    .json({
+                        success: true
+                    })
 
                 }catch(error){
                     res.status(400)
