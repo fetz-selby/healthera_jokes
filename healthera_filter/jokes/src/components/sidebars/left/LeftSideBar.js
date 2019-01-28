@@ -3,7 +3,7 @@ import InfoWidget from '../../infowidget';
 
 import PropTypes from 'prop-types';
 import '../../../assets/styles/layout.css';
-import logo from '../../../assets/icons/medwing.svg';
+import logo from '../../../assets/icons/healthera.png';
 import './left-sidebar.css';
 
 const SideBarLogo = (props) =>{
@@ -11,7 +11,7 @@ const SideBarLogo = (props) =>{
     const logo_label = 'healthera';
     return <div className='logo-container'>
                 <div className='logo'>
-                     <img src={logo} alt={logo_label}></img>
+                     <img className='logo-img' src={logo} alt={logo_label}></img>
                 </div>
                 <div onClick={props.onLogout} className='logout'>logout</div>
                 <div className='clearfix'></div>

@@ -52,11 +52,9 @@ class RightSideBar extends Component {
         joke.sentence = this.state.sentence;
         if(this.state.id){
             //Update joke
-            console.log('To update => id:'+this.state.id+', joke => '+JSON.stringify(joke));
             this.props.updateJoke(this.state.id, joke);
         }else{
             //Create new
-            console.log('To create => id:'+this.state.id+', joke => '+JSON.stringify(joke));
             this.props.saveNewJoke(joke);
         }
     }
@@ -90,7 +88,6 @@ class RightSideBar extends Component {
 
     getSuggestions = value => {
         const {tags} = this.props;
-        // const tags = [{id:1, name: 'classic'}, {id:2, name:'oldie'}, {id:3, name:'modern'}];
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
        

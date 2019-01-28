@@ -25,7 +25,6 @@ class Login extends Component{
     }
 
     render(){
-        console.log('about to render');
         return <div className='login-container'>
 
         <div className='login'>

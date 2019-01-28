@@ -57,9 +57,12 @@ class App extends Component {
     this.props.showAddTagDialog();
   }
 
+  onLogoutHandler=()=>{
+    this.props.logout();
+  }
+
   render() {
     const {tags, token, username, joke, showAddTag} = this.props;
-    console.log('showTag => '+showAddTag);
     return  <div>
               {token.length ? '' : this.showLoginOverlay()}
               {showAddTag ? this.showAddTagOverlay(): ''}
@@ -99,7 +102,8 @@ const mapDispatchToProps = dispatch =>{
     loadTags: ()=> dispatch(tagAction.fetchAllTags()),
     loadJokes: (tagId)=>dispatch(jokeAction.fetchJokesWithTag(tagId)),
     searchTag: (word)=>dispatch(tagAction.tagSearch(word)),
-    showAddTagDialog: ()=>dispatch(appAction.showAddTag())
+    showAddTagDialog: ()=>dispatch(appAction.showAddTag()),
+    logout: ()=>dispatch(appAction.logout())
   }
 }
 

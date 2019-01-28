@@ -12,6 +12,9 @@ import path from 'path';
 import http from 'http';
 // import fs from 'fs';
 
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+
 
 //Models
 import User from './models/userModel';
@@ -63,6 +66,28 @@ export default class App {
         });
 
         app.use(cors());
+    }
+
+    initDoc(){
+        const swaggerDefinition = {
+            basePath: '/healthera/api',
+            info: {
+                description: "Admin API suite for the Healthera joke system.",
+                title: "Healthera Jokes",
+                version:'v1',
+            },
+            tags: [{
+                description: "APIs for managing jokes",
+                name: "jokes",
+            }],
+        };
+        
+        const options = {
+            apis:['./routers/v1/*.js'],
+            swaggerDefinition,
+        };
+        
+        return swaggerJSDoc(options);
     }
 
     validate(req, res, next){
@@ -123,6 +148,7 @@ export default class App {
             res.sendFile(path.join(__dirname, 'build', 'index.html'));
         });
 
+        app.use('/healthera/api/docs', swaggerUi.serve, swaggerUi.setup(this.initDoc()));
         app.use('/healthera/api/v1/*', this.validate); 
         app.use('/healthera/api/v1/tags', tagsRouter.routes()); 
         app.use('/healthera/api/v1/jokes', jokesRouter.routes()); 
@@ -144,7 +170,9 @@ export default class App {
         const httpServer = http.createServer(app); 
         // const httpsServer = https.createServer(options, app);
         
-        httpServer.listen(HTTP_PORT);
+        httpServer.listen(HTTP_PORT, ()=>{
+            console.log(`*** Running on PORT ::: ${HTTP_PORT} ***`);
+        });
         // httpsServer.listen(HTTPS_PORT, ()=>{
         //     console.log('secure is running')
         // });

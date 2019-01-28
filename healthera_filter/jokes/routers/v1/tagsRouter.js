@@ -14,6 +14,8 @@ export default class TagRoutes{
                 const {size} = req.query;
                 try{
                     if(!size){
+
+                        //Default to fetch 10 tag if size not specified
                         this.fetchTags(res, 10);
                     }else{
                         this.fetchTags(res, size);
@@ -79,6 +81,12 @@ export default class TagRoutes{
         return tagRouter;
     }
 
+    /**
+     * Create or add new tag
+     * @param res - API's response object
+     * @param name - name of tag
+     */
+
     async addTag(res, name){
         try{
             const tag = await this.TagModel.create({
@@ -104,6 +112,11 @@ export default class TagRoutes{
         }
     }
 
+    /**
+     * Fetch single tags
+     * @param res - API's response object
+     * @param id - ID of tag to be fetched
+     */
     async fetchTag(res, id){
         try{
             const tag = await this.TagModel.findOne({where:{id, status: 'A'}});
@@ -122,6 +135,11 @@ export default class TagRoutes{
         }
     }
 
+    /**
+     * Fetch tags
+     * @param res - API's response object
+     * @param size - size to be pulled
+     */
     async fetchTags(res, size){
         try{
             const tags = await this.TagModel.findAll({where:{status: 'A'}, limit: size});
@@ -140,8 +158,16 @@ export default class TagRoutes{
         }
     }
 
+    /**
+     * Delete tag
+     * @param res - API's response object
+     * @param id - ID of tag
+     */
+
     async deleteTag(res, id){
         try{
+
+            //Setting the status to D for deletion
             const tag = await this.TagModel.update({status: 'D'}, {where:{id, status: 'A'}});
             if(!tag){
                 throw new Error('Delete tag request unsuccessful');

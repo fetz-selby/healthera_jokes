@@ -20,8 +20,6 @@ const reducer = (state = initial, action) => {
             cookies.save('userId', userId);
             cookies.save('name', name);
 
-            console.log(userId, name, token);
-
             return{
                 ...state,
                 logout,
@@ -35,7 +33,7 @@ const reducer = (state = initial, action) => {
         case actionTypes.APP_LOGGED_OUT:{
             const logout = true;
             const token = '';
-            const userId = '';
+            const userId = 0;
 
             cookies.remove('token');
             cookies.remove('userId');

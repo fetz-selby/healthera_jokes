@@ -13,7 +13,6 @@ const reducer = (state = initial, action) => {
         case actionTypes.JOKE_FETCH_WITH_TAG_FULFILLED:{
             //Truncate jokes
             const jokes = action.payload.map((joke)=>({id:joke.id, sentence: _.truncate(joke.sentence, {length: JOKE_TRUNCATE_LIMIT, separator:' '})}));
-            console.log('Joke truncate');
             return{
                 ...state,
                 jokes

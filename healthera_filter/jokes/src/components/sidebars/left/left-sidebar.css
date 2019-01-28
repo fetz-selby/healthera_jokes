@@ -89,6 +89,11 @@
     width: 6.84em;
 }
 
+.logo-container .logo .logo-img{
+    width: 64px;
+    height: 64px;
+}
+
 .sidebar .sidebar-list{
     float: left;
     list-style: none;

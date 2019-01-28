@@ -94,12 +94,19 @@ export default class JokeRoutes{
         return jokeRouter;
     }
 
-    async addJoke(res, sentence, lTtags){
+    /**
+     * Create or add a new Joke. Either with tags or without it
+     * @param res - API's response object
+     * @param sentence - Joke sentence
+     * @param lTags - commas separated list of tags to associate with joke
+     */
+
+    async addJoke(res, sentence, lTags){
         const app = this;
         let joke,tags;
         try{
-            if(lTtags){
-                tags = _.uniq(utils.getAsArray(lTtags, ','));
+            if(lTags){
+                tags = _.uniq(utils.getAsArray(lTags, ','));
                 const isTagsValid = await app.isTagsValid(tags);
                 if(!isTagsValid){
                     throw new Error('Invalid tags association');
@@ -135,6 +142,12 @@ export default class JokeRoutes{
         }
     }
 
+    /**
+     * Fetch a single Joke
+     * @param res - API response object
+     * @param id - ID of joke
+     */
+
     async fetchJoke(res, id){
         const app = this;
         try{
@@ -161,9 +174,16 @@ export default class JokeRoutes{
         }
     }
 
+    /**
+     * Fetch jokes either with tags or not
+     * @param tags - comma separated list of tag ID's
+     * @param res - API's response object
+     */
+
     async fetchJokes(res, tags){
         const app = this;
         try{
+            //TODO limit the number of jokes to send if count is not specified
            if(!tags){
                const jokes = await this.JokeModel.findAll({where: {status: 'A'}, attributes: ['id', 'sentence']});
                res.status(200)
@@ -175,6 +195,8 @@ export default class JokeRoutes{
                return;
             }
             const jokes = [];
+
+            //Convert joke tags to array and fetch all related jokes
             const tagIds = utils.getAsArray(tags, ',');
             tagIds.map(async (tag, i)=>{
                 const jokeGroup = await this.JokeGroupModel.findAll({where: {tag_id:tag, status: 'A'}, include:[{model: app.JokeModel, attributes: ['id', 'sentence']}] });
@@ -205,6 +227,12 @@ export default class JokeRoutes{
         }
     }
 
+    /**
+     * Update the joke
+     * @param res - API's response object
+     * @param sentence - Joke statement
+     * @param itags - Comma separated values of tags
+     */
     async updateJoke(res, id, sentence, itags){
         const app = this;
         const tags = utils.getAsArray(itags, ',');
@@ -214,14 +242,19 @@ export default class JokeRoutes{
 
             //Validate tags
             if(tags){
+
+                //Check if tags are valid
                 const isValidTags = await app.isTagsValid(tags);
 
                 if(!isValidTags){
                     throw new Error('Invalid tags association');
                 }
 
+                //Verify if tags specified is same as the persisted tags
                 const hasChanged = await app.hasChanged(id, tags);
                 if(hasChanged){
+
+                    //Remove all tags and persist them again
                     await app.removeAllTags(id);
                     await app.associateTags(id, tags);
                 }
@@ -247,8 +280,16 @@ export default class JokeRoutes{
         }
     }
 
+    /**
+     * Set's a joke status to D
+     * @param res - API response object
+     * @param id - id of the joke
+     */
+
     async deleteJoke(res, id){
         try{
+
+            //Use soft deletion by setting status to D
             const update = await this.JokeModel.update({status:'D'}, {where: {id, status:'A'}});
             await this.JokeGroupModel.update({status: 'D'}, {where: {joke_id:id, status:'A'}})
             
@@ -270,6 +311,12 @@ export default class JokeRoutes{
         }
     }
 
+    /**
+     * Fetch DB tags and compare with given tags if they're same
+     * @param tags - Array of tag ID's
+     * @param jokeId - Id of joke
+     */
+
     async hasChanged(jokeId, tags){
         const app = this;
 
@@ -280,18 +327,27 @@ export default class JokeRoutes{
             const uniqTagsDB = _.sortedUniq(allTags.map((tag)=>tag.tag_id));
             const uniqTags = _.sortedUniq(tags);
 
+            //Checking if returned tags length equal request tags
             if(uniqTagsDB.length != uniqTags.length){
                 return resolve(true);
             }
+
+            //Check if tag values are the same
             return resolve(!_.isEmpty(_.difference(uniqTags, uniqTagsDB)));
         })
     }
 
+    /**
+     * Set all a tags associated to jokeId status to D
+     * @param jokeId - joke id
+     */
     async removeAllTags(jokeId){
         const app = this;
 
         return new Promise(async(resolve, reject)=>{
             try{
+
+                //Removing all tags associated with joke
                 const update = await app.JokeGroupModel.update({status: 'D'}, {where:{joke_id: jokeId, status: 'A'}});
                 if(update) return resolve(true);
                 return resolve(false);
@@ -301,11 +357,18 @@ export default class JokeRoutes{
         })
     }
 
+    /**
+     * Create new tags with associated jokeId
+     * @param tags - Array of tag ID's
+     * @param jokeId - ID of joke
+     */
+
     async associateTags(jokeId, tags){
         const app = this;
 
         return new Promise(async(resolve, reject)=>{
             try{
+                //Create tags
                 const groupTags = tags.map(async(tag)=>{
                     return await app.JokeGroupModel.create({
                         tag_id: tag,
@@ -320,9 +383,14 @@ export default class JokeRoutes{
         })
     }
 
+    /**
+     * Validate tags
+     * @param tags - Array of tag ID's
+     */
     async isTagsValid(tags){
         const app = this;
 
+        //Validate given tags if exists
         return new Promise(async(resolve, reject)=>{
             tags.map(async(tag, i)=>{
                 const result = await app.TagModel.findOne({where:{id: tag, status: 'A'}});

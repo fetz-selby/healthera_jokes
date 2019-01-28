@@ -24,5 +24,9 @@
 }
 
 @media (min-width: 1920px) {
-    .jokes-container{width: 100%; height: 1200px;}
+    .jokes-container{
+        width: 65%; 
+        height: 1200px;    
+        margin-left: 335px;
+        margin-right: 335px;}
 }
