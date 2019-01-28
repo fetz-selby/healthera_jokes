@@ -26,6 +26,23 @@ Either create or edit the database names and user details. Default database name
 ## Run 
 `npm run start-app-prod` to build the project for production
 
+## API routes
+
+#### Documentation
+`/healthera/api/docs`
+
+#### Tags
+`/healthera/api/v1/tags`
+
+#### Jokes
+`/healthera/api/v1/jokes`
+
+#### Sessions
+`/healthera/api/sessions`
+
+#### Users
+`/healthera/api/users`
+
 ## Technologies and Frameworks used
 * [React](https://reactjs.org/)
 * [Redux](https://redux.js.org/)
