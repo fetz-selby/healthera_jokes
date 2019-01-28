@@ -1,68 +1,43 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Introduction
+Healthera shares its amazing jokes to the world. This is the admin portal for managing all the jokes. It's a [React App](https://reactjs.org/) with [Redux](https://redux.js.org/) and [Redux-Saga](https://github.com/redux-saga/redux-saga). And with some utility helpers [Lodash](https://lodash.com/), [Axios](https://github.com/axios/axios) and [Jest](https://jestjs.io/) for testing the components.
 
-## Available Scripts
+## Features
+* User based (Default cred is 'admin@healthera.com foozle')
+* Automatic and filtered(search by words in a sentence) search for jokes saved
+* Group jokes by using tags
+* Auto-suggest for new tags
+* CRUD for jokes
 
-In the project directory, you can run:
+## How to Run
+In the project directory, run
+`npm install`
+This will download all the required packages need to run the application.
 
-### `npm start`
+## Frontend Configurations
+Navigate to `src/config.js`
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Backend Configurations
+Navigate to `config.js`. Change `prepare` to `true` for first time run.
+This will initialize the DB with jokes. Set it back to `false` when initialization is complete. You can also change the `HTTP_SERVER_PORT` to desired port for the application.
+ 
+## Database Configurations
+Either create or edit the database names and user details. Default database name is `HEALTHERA_TEST`, and `healthera_admin` and `pa55word`are the user name and password respectively.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Run 
+`npm run start-app-prod` to build the project for production
 
-### `npm test`
+## Technologies and Frameworks used
+* [React](https://reactjs.org/)
+* [Redux](https://redux.js.org/)
+* [Redux-Saga](https://github.com/redux-saga/redux-saga)
+* [Webpack](https://webpack.js.org/)
+* [Jest](https://jestjs.io/)
+* [Enzyme](https://airbnb.io/enzyme/)
+* [Lodash](https://lodash.com/)
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Backlog
+Show confirmation popups or dialog
+Complete Swagger docs
+Implement UI for network unreachable
+Implement UI loading for async requests
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
