@@ -41,8 +41,8 @@ Either create or edit the database names and user details. Default database name
 * [MySQL](https://www.mysql.com/)
 
 ## Backlog
-Show confirmation popups or dialog
-Complete Swagger docs
-Implement UI for network unreachable
-Implement UI loading for async requests
+##### Show confirmation popups or dialog
+##### Complete Swagger docs
+##### Implement UI for network unreachable
+##### Implement UI loading for async requests
 
