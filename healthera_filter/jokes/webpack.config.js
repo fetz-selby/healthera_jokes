@@ -21,7 +21,6 @@ module.exports = {
     },
     externals : [nodeExternals()],
     plugins: [new CopyWebpackPlugin([
-        // {from : './resources/users.json', to:'./resources/users.json'}, 
-        // {from : './resources/images/', to:'./resources/images/'},
+        {from : './resources/jokes.json', to:'./resources/jokes.json'}
     ])]
 };
