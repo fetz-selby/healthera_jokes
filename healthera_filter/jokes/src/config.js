@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://localhost:8007';
+export const BASE_URL = '';
 export const API_OPEN_BASE = '/healthera/api';
 export const API_RES_BASE = '/healthera/api/v1';
 export const REQUEST_DELAY = 1500;
