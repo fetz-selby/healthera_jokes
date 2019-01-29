@@ -21,6 +21,6 @@ module.exports = {
     },
     externals : [nodeExternals()],
     plugins: [new CopyWebpackPlugin([
-        {from : './resources/jokes.json', to:'./resources/jokes.json'}
+        {from : './resources/jokes.csv', to:'./resources/jokes.csv'}
     ])]
 };
