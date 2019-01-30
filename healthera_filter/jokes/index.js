@@ -8,9 +8,7 @@ import jwt from 'jsonwebtoken';
 import cors from 'cors';
 import compression from 'compression';
 import path from 'path';
-// import https from 'https';
 import http from 'http';
-// import fs from 'fs';
 
 import swaggerJSDoc from "swagger-jsdoc";
 import swaggerUi from "swagger-ui-express";
@@ -159,23 +157,12 @@ export default class App {
 
     finalize(app){
         const HTTP_PORT = appConfig.config.HTTP_SERVER_PORT;
-        // const HTTPS_PORT = appConfig.config.HTTPS_SERVER_PORT;
-
-        // const options = {
-        //     key: fs.readFileSync('medwing-key.pem'),
-        //     cert: fs.readFileSync('medwing-cert.pem'),
-        //     passphrase: '134119601Hello'
-        //   };
-
         const httpServer = http.createServer(app); 
-        // const httpsServer = https.createServer(options, app);
         
         httpServer.listen(HTTP_PORT, ()=>{
             console.log(`*** Running on PORT ::: ${HTTP_PORT} ***`);
         });
-        // httpsServer.listen(HTTPS_PORT, ()=>{
-        //     console.log('secure is running')
-        // });
+       
     }
 }
 
